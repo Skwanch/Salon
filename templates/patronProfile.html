@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}  <br />
+
+    <h3>Stylists</h3>
+    <ul class = "stylists">
+        {% for stylist in stylists %}
+	    <li>
+            <a href = "{{ url_for('stylist_profile', username = stylist.username)}}"> {{stylist.username}}</a>
+            <br />
+        </li>
+        {% else %}
+            <li>No stylist accounts</li>
+        {% endfor %}
+    </ul>
+    <h3>Appointments </h3>
+    <br />
+    <ul class = "appts">
+        {% for appointment in appts %}
+        <li>
+            Date: {{appointment.datetime.date()}}
+            <br />
+            Time: {{appointment.datetime.strftime('%I:%M%p')}}
+            <br />
+            Stylist: {{appointment.stylist.username}}
+            <br />
+            <a href="{{url_for('cancel_appt', ID = appointment.appt_id)}}">Cancel appointment</a>
+        </li>
+        {% else %}
+		    <li><strong>No appointments scheduled</strong>
+        {% endfor %}
+        <br />
+        <a href="{{ url_for('logout') }}">Click here to logout</a>        
+{% endblock %}

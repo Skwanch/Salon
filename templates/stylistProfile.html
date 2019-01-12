@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}  <br />
+    
+Stylists work Tuesday through Saturday, from 10AM to 8PM.
+<br />
+Each haircut takes 1 hour and starts on the hour.
+
+<h3>Appointments: <br /></h3>
+<ul class = "schedule">
+    {% for date in dates %}
+            {% if date.weekday() == 1 %}
+                <strong>Tuesday, {{date}}</strong>:
+                <br />
+                {% for hour in hours %}
+                <li>
+                        {% if usertype == "patron" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {% if appointment.patron.username == username %}
+                                        {{hour.strftime('%I:%M%p')}}: Your appointment
+                                        <br />
+                                    {% else %}
+                                        {{hour.strftime('%I:%M%p')}}: Booked
+                                        <br />
+                                    {% endif %}
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                        {% if usertype == "stylist" or usertype == "owner" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {{hour.strftime('%I:%M%p')}}: Appointment with: <a href="{{ url_for('patron_profile', username = appointment.patron.username)}}">{{appointment.patron.username}}</a>
+                                    <br />
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                {% endfor %}
+            {% endif %}
+            {% if date.weekday() == 2 %}
+                <strong>Wednesday, {{date}}</strong>:
+                <br />
+                {% for hour in hours %}
+                <li>
+                        {% if usertype == "patron" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {% if appointment.patron.username == username %}
+                                        {{hour.strftime('%I:%M%p')}}: Your appointment
+                                        <br />
+                                    {% else %}
+                                        {{hour.strftime('%I:%M%p')}}: Booked
+                                        <br />
+                                    {% endif %}
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                        {% if usertype == "stylist" or usertype == "owner" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {{hour.strftime('%I:%M%p')}}: Appointment with: <a href="{{ url_for('patron_profile', username = appointment.patron.username)}}">{{appointment.patron.username}}</a>
+                                    <br />
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                {% endfor %}
+            {% endif %}
+            {% if date.weekday() == 3 %}
+                <strong>Thursday, {{date}}</strong>:
+                <br />
+                {% for hour in hours %}
+                <li>
+                        {% if usertype == "patron" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {% if appointment.patron.username == username %}
+                                        {{hour.strftime('%I:%M%p')}}: Your appointment
+                                        <br />
+                                    {% else %}
+                                        {{hour.strftime('%I:%M%p')}}: Booked
+                                        <br />
+                                    {% endif %}
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                        {% if usertype == "stylist" or usertype == "owner" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {{hour.strftime('%I:%M%p')}}: Appointment with: <a href="{{ url_for('patron_profile', username = appointment.patron.username)}}">{{appointment.patron.username}}</a>
+                                    <br />
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                {% endfor %}
+            {% endif %}
+            {% if date.weekday() == 4 %}
+                <strong>Friday, {{date}}</strong>:
+                <br />
+                {% for hour in hours %}
+                <li>
+                        {% if usertype == "patron" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {% if appointment.patron.username == username %}
+                                        {{hour.strftime('%I:%M%p')}}: Your appointment
+                                        <br />
+                                    {% else %}
+                                        {{hour.strftime('%I:%M%p')}}: Booked
+                                        <br />
+                                    {% endif %}
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                        {% if usertype == "stylist" or usertype == "owner" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {{hour.strftime('%I:%M%p')}}: Appointment with: <a href="{{ url_for('patron_profile', username = appointment.patron.username)}}">{{appointment.patron.username}}</a>
+                                    <br />
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                {% endfor %}
+            {% endif %}
+            {% if date.weekday() == 5 %}
+                <strong>Saturday, {{date}}</strong>:
+                <br />
+                {% for hour in hours %}
+                <li>
+                        {% if usertype == "patron" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {% if appointment.patron.username == username %}
+                                        {{hour.strftime('%I:%M%p')}}: Your appointment
+                                        <br />
+                                    {% else %}
+                                        {{hour.strftime('%I:%M%p')}}: Booked
+                                        <br />
+                                    {% endif %}
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: <a href="{{ url_for('schedule_appt', date = date.strftime('%Y-%m-%d'), time = hour, username = username, stylist = stylist)}}"> Available </a>
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                        {% if usertype == "stylist" or usertype == "owner" %}
+                            {% for appointment in appts %}
+                                {% if appointment.datetime.date() == date and appointment.datetime.time() == hour %}
+                                    {{hour.strftime('%I:%M%p')}}: Appointment with: <a href="{{ url_for('patron_profile', username = appointment.patron.username)}}">{{appointment.patron.username}}</a>
+                                    <br />
+                                {% else %}
+                                    {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                    <br />
+                                {% endif %}
+                            {% else %}
+                                {{hour.strftime('%I:%M%p')}}: No appointment scheduled
+                                <br />
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                {% endfor %}
+            {% endif %}
+    <!--if appointment.datetime == datetime print appointment info-->
+    {% endfor %}
+</ul>
+<br />
+<a href="{{ url_for('logout') }}">Click here to logout</a>
+{% endblock %}

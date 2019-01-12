@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Welcome, Owner{% endblock %}
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}  <br />
+
+<a href="{{ url_for('create_stylist')}}">Click here to create new Stylist account</a>
+<br />
+<h3>Stylists</h3>
+<ul class = "stylists">
+    {% for stylist in stylists %}
+	<li>
+        <a href = "{{ url_for('stylist_profile', username = stylist.username)}}"> {{stylist.username}}</a>
+        <br />
+    </li>
+    {% else %}
+        <li>No stylist accounts</li>
+    {% endfor %}
+</ul>
+<h3>Patrons</h3>
+<ul class = "patrons">
+    {% for patron in patrons %}
+    <li>
+        <a href = "{{ url_for('patron_profile', username = patron.username)}}"> {{patron.username}}</a>
+        <br />
+    </li>
+    {% else %}
+        <li>No patron accounts</li>
+    {% endfor %}
+</ul>
+<br />
+<a href="{{ url_for('logout') }}">Click here to logout</a>
+
+{% endblock %}

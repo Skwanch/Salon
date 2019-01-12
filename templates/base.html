@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Treat Yo Self Salon</title>
+        <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css"/>
+    </head>
+    
+	<body>
+		{% if "username" in session %}
+			Logged in as {{ session["username"] }}, <a href="{{ url_for('logout') }}">Click here to logout</a>
+			<br />
+			<br />
+		{% endif %}
+		{% block body %}
+		{% endblock %}
+	</body>
+</html>
